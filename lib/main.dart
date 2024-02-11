@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     : ApiService.fetchRecipes('', 0, 20); // Fetch all recipes
               });
             },
+            //The options that can be chosen
             items: <String>[
               '',
               'Balanced',
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Low-carb',
               'Keto',
               'Paleo'
-            ] // Include an empty item
+            ] // Include an empty item - as default
                 .map<DropdownMenuItem<String>>((String? value) {
               // Ensure the value is nullable
               return DropdownMenuItem<String>(
@@ -73,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            final List<Recipe> recipes = snapshot.data!;
+            final List<Recipe> recipes = snapshot.data!; 
+            //The actual grid for the recipes
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -83,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: recipes.length,
               itemBuilder: (context, index) {
                 final recipe = recipes[index];
+                //For navigatoin and so it can go to the website on click 
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
